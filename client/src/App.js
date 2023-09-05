@@ -2,6 +2,8 @@ import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import NavBar from "./components/NavBar/NavBar";
 import { Home, Form, Detail, Landing } from "./views";
 import { Route } from "react-router-dom";
+import axios from "axios";
+axios.defaults.baseURL = "rick-production.up.railway.app";
 function App() {
   const location = useLocation();
 
