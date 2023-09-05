@@ -14,7 +14,7 @@ export const GET_CHARACTER_ID = "GET_CHARACTER_ID";
 
 export const getCharacters = () => {
   return async function (dispatch) {
-    const apiData = await axios.get("/morty");
+    const apiData = await axios.get("rick-production.up.railway.app/morty");
     const characters = apiData.data;
     dispatch({ type: GET_CHARACTERS, payload: characters });
   };
@@ -22,13 +22,18 @@ export const getCharacters = () => {
 
 export function createCharacter(payload) {
   return async function (dispatch) {
-    const response = await axios.post("/morty", payload);
+    const response = await axios.post(
+      "rick-production.up.railway.app/morty",
+      payload
+    );
     return response;
   };
 }
 export const getGenders = () => {
   return async function (dispatch) {
-    const gendersData = await axios.get("/gender");
+    const gendersData = await axios.get(
+      "rick-production.up.railway.app/gender"
+    );
     const genders = gendersData.data;
     dispatch({ type: GET_GENDERS, payload: genders });
   };
@@ -40,7 +45,9 @@ export const cleanDetail = () => {
 };
 export const getCharactersById = (id) => {
   return async function (dispatch) {
-    const charactersData = await axios.get(`/morty/${id}`);
+    const charactersData = await axios.get(
+      `rick-production.up.railway.app/morty/${id}`
+    );
     const character = charactersData.data;
     dispatch({ type: GET_CHARACTER_ID, payload: character });
   };
@@ -83,7 +90,9 @@ export const resetPage = (payload) => {
 export const getCharactersName = (name) => {
   return async function (dispatch) {
     try {
-      const characterData = await axios.get(`/morty?name=${name}`);
+      const characterData = await axios.get(
+        `rick-production.up.railway.app/morty?name=${name}`
+      );
       const characters = characterData.data;
       dispatch({ type: GET_CHARACTER_NAME, payload: characters });
     } catch (error) {
