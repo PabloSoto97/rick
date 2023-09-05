@@ -19,6 +19,13 @@ export const getCharacters = () => {
     dispatch({ type: GET_CHARACTERS, payload: characters });
   };
 };
+
+export function createCharacter(payload) {
+  return async function (dispatch) {
+    const response = await axios.post("http://localhost:3001/morty", payload);
+    return response;
+  };
+}
 export const getGenders = () => {
   return async function (dispatch) {
     const gendersData = await axios.get("http://localhost:3001/gender");

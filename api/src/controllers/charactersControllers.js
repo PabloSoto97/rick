@@ -70,26 +70,27 @@ const getApiInfo = async () => {
 
   return allCharacters;
 };
-
 const getDbInfo = async () => {
   const characterdb = await Character.findAll({
+    attributes: ["id", "name", "species", "location", "image", "createdMyDb"],
     include: {
       model: Gender,
       attributes: ["name"],
     },
   });
+
   let response = await characterdb.map((element) => {
     return {
       id: element.id,
       name: element.name,
       species: element.species,
-      gender: element.gender,
-
+      gender: element.gender.name, // Obtener el nombre del género como un string
       location: element.location,
       image: element.image,
       createdMyDb: element.createdMyDb,
     };
   });
+
   return response;
 };
 

@@ -1,92 +1,169 @@
-import axios from "axios";
-import { useState } from "react";
-import style from "../Form/Form.module.css";
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getGenders, createCharacter } from "../../redux/actions";
+import style from "./Form.module.css";
+
+const validate = (input) => {
+  let error = [];
+
+  if (!input.name) {
+    error.name = "The name is required.";
+  }
+  if (!/^[a-zA-Z ]+$/.test(input.name)) {
+    error.name = "The title requires letters";
+  }
+  if (!/^[a-zA-Z ]+$/.test(input.status)) {
+    error.status = "The title requires letters";
+  }
+  if (!/^[a-zA-Z ]+$/.test(input.species)) {
+    error.species = "The title requires letters";
+  }
+
+  return error;
+};
 
 const Form = () => {
-  const [form, setForm] = useState({
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const gender = useSelector((state) => state.genders);
+
+  const [input, setInput] = useState({
     name: "",
-    species: "",
-    gender: "",
-    location: "",
     image: "",
+    species: "",
+    genderId: 0,
+    location: "",
   });
 
-  const [errors, setErrors] = useState({
+  const [error, setError] = useState({
     name: "",
-    species: "",
-    gender: "",
-    location: "",
     image: "",
+    species: "",
+    genderId: "",
+    location: "",
   });
 
-  const changueHandler = (event) => {
-    const property = event.target.name;
-    const value = event.target.value;
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const property = e.target.name;
+    setError(validate({ ...input, [property]: value }));
 
-    setForm({ ...form, [property]: value });
+    setInput({ ...input, [property]: value });
+    console.log(input);
   };
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-    axios
-      .post("http://localhost:3001/morty", form)
-      .then((res) => alert("Personaje Creado con exito"))
-      .catch((err) => alert(err));
+
+  const handleSelect = (e) => {
+    setInput({
+      ...input,
+      genderId: e.target.value,
+    });
   };
+
+  const handleDelete = () => {
+    setInput({
+      genderId: 0,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(input);
+    dispatch(createCharacter(input));
+    alert("Character Created");
+
+    setInput({
+      name: "",
+      image: "",
+      species: "",
+      genderId: 0,
+      location: "",
+    });
+    history.push("/home");
+  };
+
+  useEffect(() => {
+    dispatch(getGenders());
+  }, [dispatch]);
 
   return (
     <div className={style.container}>
       <div className={style.forms}>
-        <form className={style.form} onSubmit={onSubmitHandler}>
+        <h1> New Character</h1>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <div className={style.formgroup}>
-            <label>Name</label>
+            <label>Name:</label>
             <input
               type="text"
-              value={form.name}
-              onChange={changueHandler}
+              value={input.name}
               name="name"
-            ></input>
+              placeholder="Write your name character...."
+              onChange={(e) => handleChange(e)}
+            />
+            {error.name && <span>{error.name}</span>}
+            <br />
           </div>
           <div className={style.formgroup}>
-            <label>Species</label>
+            <label>Image Url:</label>
             <input
               type="text"
-              value={form.species}
-              onChange={changueHandler}
-              name="species"
-            ></input>
-          </div>
-          <div className={style.formgroup}>
-            <label>Gender</label>
-            <input
-              type="text"
-              value={form.gender}
-              onChange={changueHandler}
-              name="gender"
-            ></input>
-          </div>
-
-          <div className={style.formgroup}>
-            <label>Location</label>
-            <input
-              type="text"
-              value={form.location}
-              onChange={changueHandler}
-              name="location"
-            ></input>
-          </div>
-          <div className={style.formgroup}>
-            <label>Image</label>
-            <input
-              type="text"
-              value={form.image}
-              onChange={changueHandler}
+              value={input.image}
               name="image"
-            ></input>
+              placeholder="Url image your character...."
+              onChange={(e) => handleChange(e)}
+            />
+            {error.image && <span>{error.image}</span>}
+            <br />
           </div>
 
-          <button className={style.formsubmitbtn} type="submit">
-            Crear
-          </button>
+          <div className={style.formgroup}>
+            <label>Species:</label>
+            <input
+              type="text"
+              value={input.species}
+              name="species"
+              placeholder="Write species your character...."
+              onChange={(e) => handleChange(e)}
+            />
+            {error.species && <span>{error.species}</span>}
+            <br />
+          </div>
+          <div className={style.formgroup}>
+            <label>Location:</label>
+            <input
+              type="text"
+              value={input.location}
+              name="location"
+              placeholder="Write location your character...."
+              onChange={(e) => handleChange(e)}
+            />
+            {error.location && <span>{error.location}</span>}
+            <br />
+          </div>
+          <div className={style.formgroup}>
+            <label>Gender:</label>
+            <select
+              className={style.formsubmitbtn}
+              onChange={(e) => handleSelect(e)}
+              defaultValue="default"
+            >
+              {<option default></option>}
+              {gender?.map((el) => {
+                return (
+                  <option key={el.id} value={el.id}>
+                    {el.name}
+                  </option>
+                );
+              })}
+            </select>
+            <div>
+              <button className={style.formsubmitbtn} type="submit">
+                Create Character
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     </div>
