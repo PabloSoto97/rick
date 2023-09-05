@@ -1,0 +1,112 @@
+@font-face {
+  font-family: "schwifty";
+  src: url(../../fuentes/get_schwifty.ttf);
+}
+
+.container {
+  width: 100%; /* Ancho del 100% */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.forms {
+  width: 500px;
+  background: linear-gradient(#212121, #212121) padding-box,
+    linear-gradient(145deg, transparent 35%, #05f03f, #40c9ff) border-box;
+  border: 2px solid transparent;
+  padding: 32px 24px;
+  font-size: 20px;
+  font-family: schwifty;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+  border-radius: 16px;
+}
+
+.forms button:active {
+  scale: 0.95;
+}
+
+.forms .form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.forms .formgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.forms .formgroup label {
+  display: block;
+  margin-bottom: 5px;
+  color: #04f704;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.forms .formgroup input {
+  width: 90%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: #fff;
+  font-family: inherit;
+  background-color: transparent;
+  border: 1px solid #414141;
+}
+
+.forms .formgroup textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  resize: none;
+  color: #fff;
+  height: 96px;
+  border: 1px solid #414141;
+  background-color: transparent;
+  font-family: inherit;
+}
+
+.forms .formgroup input::placeholder {
+  opacity: 0.5;
+}
+
+.forms .formgroup input:focus {
+  outline: none;
+  border-color: #0084c2;
+}
+
+.forms.formgroup textarea:focus {
+  outline: none;
+  border-color: #0084c2;
+}
+
+.forms .formsubmitbtn {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: flex-start;
+  font-family: inherit;
+  color: #717171;
+  font-weight: 600;
+  width: 40%;
+  background: #313131;
+  border: 1px solid #414141;
+  padding: 12px 16px;
+  font-size: inherit;
+  gap: 8px;
+  margin-top: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.forms .formsubmitbtn:hover {
+  background-color: #1dd305;
+  border-color: #fff;
+}

@@ -1,0 +1,93 @@
+@font-face {
+  font-family: "schwifty";
+  src: url(../../fuentes/get_schwifty.ttf);
+}
+
+body {
+  background-image: url("../../imgs/1292288.jpg"); /* Reemplaza 'ruta/a/tu/imagen.jpg' con la URL o la ruta de tu imagen de fondo */
+  background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
+  background-repeat: no-repeat; /* Evita que la imagen de fondo se repita */
+  background-attachment: fixed; /* Mantiene la imagen de fondo fija mientras se desplaza la página */
+  background-position: center; /* Centra la imagen de fondo */
+  /* overflow-y: hidden; */
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mensaje {
+  --glow-color: rgba(1, 206, 221, 0.788);
+  --glow-spread-color: rgba(166, 233, 153, 0.781);
+  --enhanced-glow-color: rgb(134, 233, 53);
+
+  color: var(--glow-color);
+
+  text-shadow: 0 0 0.5em var(--glow-color);
+  font-family: schwifty;
+  font-size: 84px;
+}
+
+.msj1 {
+  position: relative;
+  left: -183px;
+  top: 100px;
+}
+.msj2 {
+  position: relative;
+  left: 1px;
+  top: 410px;
+}
+.btn {
+  --glow-color: rgba(0, 217, 255, 0.788);
+  --glow-spread-color: rgba(166, 233, 153, 0.781);
+  --enhanced-glow-color: rgb(134, 233, 53);
+  --btn-color: rgb(18, 105, 0);
+  border: 0.25em solid var(--glow-color);
+  padding: 1em 3em;
+  color: var(--glow-color);
+  font-size: 15px;
+  font-weight: bold;
+  font-family: schwifty;
+  background-color: var(--btn-color);
+  border-radius: 1em;
+  outline: none;
+  box-shadow: 0 0 1em 0.25em var(--glow-color),
+    0 0 4em 1em var(--glow-spread-color),
+    inset 0 0 0.75em 0.25em var(--glow-color);
+  text-shadow: 0 0 0.5em var(--glow-color);
+  position: relative;
+  transition: all 0.3s;
+  left: -580px;
+  top: 642px;
+}
+
+.btn::after {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  top: 120%;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--glow-spread-color);
+  filter: blur(2em);
+  opacity: 0.7;
+  transform: perspective(1.5em) rotateX(35deg) scale(1, 0.6);
+}
+
+.btn:hover {
+  color: var(--btn-color);
+  background-color: var(--glow-color);
+  box-shadow: 0 0 1em 0.25em var(--glow-color),
+    0 0 4em 2em var(--glow-spread-color),
+    inset 0 0 0.75em 0.25em var(--glow-color);
+}
+
+.btn:active {
+  box-shadow: 0 0 0.6em 0.25em var(--glow-color),
+    0 0 2.5em 2em var(--glow-spread-color),
+    inset 0 0 0.5em 0.25em var(--glow-color);
+}
